@@ -1,0 +1,24 @@
+{
+  "name": "grafos-trabajo-1",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "bootstrap-vue": "^2.21.2",
+    "core-js": "^3.15.1",
+    "lodash": "^4.17.21",
+    "nuxt": "^2.15.7",
+    "vis": "^4.21.0-EOL",
+    "vis-network": "^9.1.0",
+    "vue-lodash": "^2.1.2",
+    "vue-vis": "^1.0.0",
+    "vue-vis-network": "^1.0.2"
+  },
+  "devDependencies": {}
+}
