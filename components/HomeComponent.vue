@@ -410,13 +410,13 @@ import vis from 'vis'
 
 export default {
     data(){
+        console.log('Inicia la creacion de la data');
         return{
-            /*Variables que almacenan los datos del grafo (nodos, aristas y sus respectivos datos) */
             nodo:{id:'', label:'',color:'#0BC596'},
-            arista:{from:'',to:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}},  //arista  no dirigida
-            aristaDirigido:{from:'', to:'', color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}}, //arista e dirigida
-            aristaEtiquetada:{from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}}, //arista  etiquetada no dirigida
-            aristaEtiquetadaDirigida:{from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}}, //arista etiquetada dirigida.
+            arista:{from:'',to:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}},
+            aristaDirigido:{from:'', to:'', color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}},
+            aristaEtiquetada:{from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}},
+            aristaEtiquetadaDirigida:{from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}},
             
             nodos:[],   
             aristas:[],
@@ -443,6 +443,7 @@ export default {
         }
     }, 
     created(){
+        console.log('Data Creada');
         this.prim()
         
     },
@@ -451,17 +452,20 @@ export default {
 
     methods:{
         llamarHam(){
+            console.log('Llamada a un Grafo Hamiltoniano');
             var ham =this.isHamiltoniano()
             return ham
         },
 
         delAndClear(){
+            console.log('Se limpian los datos');
             this.eliminarGrafo();
             this.drawGrafo();
         },     
 
         drawGrafo(){
             if(process.client){
+                console.log('Se dibuja el Grafo del lado del cliente');
                 var container= document.getElementById("grafo");
                 var data={nodes:this.nodos,
                         edges:this.aristas};
@@ -475,6 +479,7 @@ export default {
 
         drawArbol(){
             if(process.client){
+                console.log('Se dibuja el arbol del lado del cliente');
                 var container= document.getElementById("arbol");
                 var data={nodes:this.nodos,
                         edges:this.caminoPrim};
@@ -488,6 +493,7 @@ export default {
 
         mostrarArbol()
         {
+            console.log('Se Muestra el arbol');
             this.showArbol=true;
             this.drawArbol();
         },
@@ -504,6 +510,7 @@ export default {
                         arrows:'to',
                     },
                 }
+                console.log('Se dibuja el grafo dirigido');
                 var network= new vis.Network(container,data,options);
                 
             }
@@ -512,6 +519,7 @@ export default {
         drawGrafoEtiquetadoNoDirigido()
         {
             if(process.client){
+                console.log('Se dibuja el grafo etiquetado');
                 var container= document.getElementById("grafo");
                 var data= {nodes:this.nodos,
                         edges:this.aristas};
@@ -524,11 +532,13 @@ export default {
 
         createNode()
         {
+            console.log('Se Crea un nodo');
             this.create=true;
             this.createAris=false;
         },
         
         createArista(){
+            console.log('Se Crea una arista');
             this.createAris=true;
             this.create=false;
         },
@@ -538,18 +548,21 @@ export default {
             if(this.nodo.id==='')
             {
                 alert('Debe ingresar un id.');
+                console.log('El nodo se ingresa sin id');
                 return;
             }
             for(var i=0; i<this.nodos.length;i++)
             {
                 if(this.nodos[i].id==this.nodo.id)
                 {
+                    console.log('El Nodo ya existe',this.nodo.id);
                     alert('El nodo ya existe. Ingrese otro id.');
                     return;
                 }
             }
             this.nodo.label=this.nodo.id;
             this.nodos.push(this.nodo);
+            console.log('Se agrega el nodo:', this.nodo.id);
             this.nodo={id:'', label:'',color:'#0BC596'}
             this.drawGrafo();
         },
@@ -562,6 +575,7 @@ export default {
                 if(this.arista.from==='' || this.arista.to==='')
                 {
                     alert('Debe ingresar los extremos de la arista.');
+                    console.log('Se intenta dibujar el grafo sin aristas');
                     return;
                 }
                 for(var i=0; i<this.aristas.length;i++)
@@ -569,10 +583,12 @@ export default {
                     if(this.arista.from===this.aristas[i].from && this.arista.to===this.aristas[i].to)
                     {
                         alert('ya existe la arista. Igrese otra');
+                        console.log('Ya Existen las aristas');
                         return;
                     }
                 }
                 this.aristas.push(this.arista);
+                console.log('Se crea la arista', this.arista);
                 this.arista={from:'',to:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
                 this.drawGrafo();
             }
@@ -582,6 +598,7 @@ export default {
                 if(this.aristaDirigido.from==='' || this.aristaDirigido.to==='')
                 {
                     alert('Debe ingresar los extremos de la arista.');
+                    console.log('No se agregan los extremos');
                     return;
                 }
                 for(var i=0; i<this.aristas.length;i++)
@@ -589,10 +606,12 @@ export default {
                     if(this.aristaDirigido.from===this.aristas[i].from && this.aristaDirigido.to === this.aristas[i].to)
                     {
                         alert('ya existe la arista. Ingrese otra');
+                        console.log('Ya existe la arista');
                         return;
                     }
                 }
                 this.aristas.push(this.aristaDirigido);
+                console.log('Se Agrega la arista:', this.aristaDirigido);
                 this.aristaDirigido={from:'', to:'', color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
                 this.drawGrafoDirigido();
                 var ady= this.matrizAdyacenciaDirigido();
@@ -615,6 +634,7 @@ export default {
                     
                 }
                 this.aristas.push(this.aristaEtiquetadaDirigida);
+                console.log('Se agerga la arista',this.aristaEtiquetadaDirigida);
                 this.aristaEtiquetadaDirigida={from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
                 this.drawGrafoDirigido();
                 var ady= this.matrizAdyacenciaDirigido();
@@ -637,6 +657,7 @@ export default {
                     
                 }
                 this.aristas.push(this.aristaEtiquetada);
+                console.log('Se agrega la arista', this.aristaEtiquetada);
                 this.aristaEtiquetada={from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
                 this.drawGrafoEtiquetadoNoDirigido();
                 var ady=this.matrizAdyacencia();
@@ -688,7 +709,8 @@ export default {
                 var n2= this.aristas[i].to;
                 matrix[n1-1][n2-1]=1;
                 matrix[n2-1][n1-1]=1;
-            } 
+            }
+            console.log('Matriz adyacencia',matrix); 
             return matrix;        
         },
 
@@ -707,6 +729,7 @@ export default {
                 var n2=this.aristas[i].to;
                 matrix[n1-1][n2-1]=1;
             }
+            console.log('Se imprime la matriz', matrix);
             return matrix;
         },
 
@@ -716,10 +739,12 @@ export default {
             for(var i=0;i<largo;i++){
                 for(var j=0;j<largo;j++){
                     if(matriz[i][j]===0){
+                        console.log('Conexo matriz', false);
                         return false;
                     }
                 }
             }
+            console.log('Conexo matriz', true);
             return true;
         },
 
@@ -1040,6 +1065,8 @@ export default {
                 }
                 caminos.push(camino);
             }
+            console.log('Caminos:', caminos);
+            console.log('Pesos', pesos);
             this.mostrarDijkstra(caminos,pesos)
         },
 
@@ -1165,12 +1192,12 @@ export default {
             }
         },
 
-        multiplicarMatriz(matrizA,matrizB)//Multiplica 
+        multiplicarMatriz(matrizA,matrizB)
         {
             let res=[];
             var sum=0;
             
-            for(var i=0; i<matrizA.length;i++)//crea matriz res[][]
+            for(var i=0; i<matrizA.length;i++)
             {
                 res[i]= new Array(matrizA.length);
             }
@@ -1190,7 +1217,7 @@ export default {
             return res;	
         },
 
-        potencia(matriz, largo )//eleva una matriz a una potencia que corresponde a su largo-1
+        potencia(matriz, largo )
         {
             var sum=0;
             var aux=matriz;
@@ -1272,7 +1299,8 @@ export default {
         eliminarGrafo(){
             this.nodos=[];
             this.aristas=[];
-
+            console.log('Elimina los nodos',this.nodos);
+            console.log('Elimina las aristas', this.aristas);
         },
 
     },
