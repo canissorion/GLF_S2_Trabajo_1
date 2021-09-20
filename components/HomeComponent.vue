@@ -454,6 +454,7 @@ export default {
         llamarHam(){
             console.log('Llamada a un Grafo Hamiltoniano');
             var ham =this.isHamiltoniano()
+            console.log('Grafo Hamiltoniano', ham);
             return ham
         },
 
@@ -544,124 +545,131 @@ export default {
         },
 
         crearNodo(){
-
-            if(this.nodo.id==='')
-            {
-                alert('Debe ingresar un id.');
-                console.log('El nodo se ingresa sin id');
-                return;
+            try {
+                if(this.nodo.id==='')
+                    {
+                        alert('Debe ingresar un id.');
+                        console.log('El nodo se ingresa sin id');
+                        return;
+                    }
+                    for(var i=0; i<this.nodos.length;i++)
+                    {
+                        if(this.nodos[i].id==this.nodo.id)
+                        {
+                            console.log('El Nodo ya existe',this.nodo.id);
+                            alert('El nodo ya existe. Ingrese otro id.');
+                            return;
+                        }
+                    }
+                this.nodo.label=this.nodo.id;
+                this.nodos.push(this.nodo);
+                console.log('Se agrega el nodo:', this.nodo.id);
+                this.nodo={id:'', label:'',color:'#0BC596'}
+                this.drawGrafo();   
+            } catch (error) {
+                console.log('Error al crear nodo:', error);
             }
-            for(var i=0; i<this.nodos.length;i++)
-            {
-                if(this.nodos[i].id==this.nodo.id)
-                {
-                    console.log('El Nodo ya existe',this.nodo.id);
-                    alert('El nodo ya existe. Ingrese otro id.');
-                    return;
-                }
-            }
-            this.nodo.label=this.nodo.id;
-            this.nodos.push(this.nodo);
-            console.log('Se agrega el nodo:', this.nodo.id);
-            this.nodo={id:'', label:'',color:'#0BC596'}
-            this.drawGrafo();
         },
         
         crearArista(){
-
-            if(this.option===1)
-            {
-
-                if(this.arista.from==='' || this.arista.to==='')
+            try {
+                if(this.option===1)
                 {
-                    alert('Debe ingresar los extremos de la arista.');
-                    console.log('Se intenta dibujar el grafo sin aristas');
-                    return;
-                }
-                for(var i=0; i<this.aristas.length;i++)
-                {
-                    if(this.arista.from===this.aristas[i].from && this.arista.to===this.aristas[i].to)
+
+                    if(this.arista.from==='' || this.arista.to==='')
                     {
-                        alert('ya existe la arista. Igrese otra');
-                        console.log('Ya Existen las aristas');
+                        alert('Debe ingresar los extremos de la arista.');
+                        console.log('Se intenta dibujar el grafo sin aristas');
                         return;
                     }
-                }
-                this.aristas.push(this.arista);
-                console.log('Se crea la arista', this.arista);
-                this.arista={from:'',to:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
-                this.drawGrafo();
-            }
-            
-            if(this.option===2)
-            {
-                if(this.aristaDirigido.from==='' || this.aristaDirigido.to==='')
-                {
-                    alert('Debe ingresar los extremos de la arista.');
-                    console.log('No se agregan los extremos');
-                    return;
-                }
-                for(var i=0; i<this.aristas.length;i++)
-                {
-                    if(this.aristaDirigido.from===this.aristas[i].from && this.aristaDirigido.to === this.aristas[i].to)
+                    for(var i=0; i<this.aristas.length;i++)
                     {
-                        alert('ya existe la arista. Ingrese otra');
-                        console.log('Ya existe la arista');
-                        return;
-                    }
-                }
-                this.aristas.push(this.aristaDirigido);
-                console.log('Se Agrega la arista:', this.aristaDirigido);
-                this.aristaDirigido={from:'', to:'', color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
-                this.drawGrafoDirigido();
-                var ady= this.matrizAdyacenciaDirigido();
-            }
-
-            if(this.option===3)
-            {
-                if(this.aristaEtiquetadaDirigida.from==='' || this.aristaEtiquetadaDirigida.to==='' || this.aristaEtiquetadaDirigida.label==='')
-                {
-                    alert("extremos de aristas o peso no indicado. Rellene todos los campos antes de continuar");
-                    return;
-                }
-                for(var i=0; i<this.aristas.length;i++)
-                {
-                    if(this.aristaEtiquetadaDirigida.from===this.aristas[i].from && this.aristaEtiquetadaDirigida.to===this.aristas[i].to)
-                    {
-                        alert("La arista ya existe. Ingrese otra");
-                        return;
+                        if(this.arista.from===this.aristas[i].from && this.arista.to===this.aristas[i].to)
+                        {
+                            alert('ya existe la arista. Igrese otra');
+                            console.log('Ya Existen las aristas');
+                            return;
+                        }
                     }
                     
+                    this.aristas.push(this.arista);
+                    console.log('Se crea la arista', this.arista);
+                    this.arista={from:'',to:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
+                    this.drawGrafo();
                 }
-                this.aristas.push(this.aristaEtiquetadaDirigida);
-                console.log('Se agerga la arista',this.aristaEtiquetadaDirigida);
-                this.aristaEtiquetadaDirigida={from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
-                this.drawGrafoDirigido();
-                var ady= this.matrizAdyacenciaDirigido();
-            }
-
-            if(this.option===4)
-            {
-                if(this.aristaEtiquetada.from==='' || this.aristaEtiquetada.to==='' || this.aristaEtiquetada.label==='')
+                
+                if(this.option===2)
                 {
-                    alert("extremos de aristas o peso no indicado. Rellene todos los campos antes de continuar");
-                    return;
-                }
-                for(var i=0; i<this.aristas.length;i++)
-                {
-                    if(this.aristaEtiquetada.from===this.aristas[i].from && this.aristaEtiquetada.to===this.aristas[i].to)
+                    if(this.aristaDirigido.from==='' || this.aristaDirigido.to==='')
                     {
-                        alert("La arista ya existe. Ingrese otra");
+                        alert('Debe ingresar los extremos de la arista.');
+                        console.log('No se agregan los extremos');
                         return;
                     }
-                    
+                    for(var i=0; i<this.aristas.length;i++)
+                    {
+                        if(this.aristaDirigido.from===this.aristas[i].from && this.aristaDirigido.to === this.aristas[i].to)
+                        {
+                            alert('ya existe la arista. Ingrese otra');
+                            console.log('Ya existe la arista');
+                            return;
+                        }
+                    }
+                    this.aristas.push(this.aristaDirigido);
+                    console.log('Se Agrega la arista:', this.aristaDirigido);
+                    this.aristaDirigido={from:'', to:'', color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
+                    this.drawGrafoDirigido();
+                    var ady= this.matrizAdyacenciaDirigido();
                 }
-                this.aristas.push(this.aristaEtiquetada);
-                console.log('Se agrega la arista', this.aristaEtiquetada);
-                this.aristaEtiquetada={from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
-                this.drawGrafoEtiquetadoNoDirigido();
-                var ady=this.matrizAdyacencia();
 
+                if(this.option===3)
+                {
+                    if(this.aristaEtiquetadaDirigida.from==='' || this.aristaEtiquetadaDirigida.to==='' || this.aristaEtiquetadaDirigida.label==='')
+                    {
+                        alert("extremos de aristas o peso no indicado. Rellene todos los campos antes de continuar");
+                        return;
+                    }
+                    for(var i=0; i<this.aristas.length;i++)
+                    {
+                        if(this.aristaEtiquetadaDirigida.from===this.aristas[i].from && this.aristaEtiquetadaDirigida.to===this.aristas[i].to)
+                        {
+                            alert("La arista ya existe. Ingrese otra");
+                            return;
+                        }
+                        
+                    }
+                    this.aristas.push(this.aristaEtiquetadaDirigida);
+                    console.log('Se agerga la arista',this.aristaEtiquetadaDirigida);
+                    this.aristaEtiquetadaDirigida={from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
+                    this.drawGrafoDirigido();
+                    var ady= this.matrizAdyacenciaDirigido();
+                }
+
+                if(this.option===4)
+                {
+                    if(this.aristaEtiquetada.from==='' || this.aristaEtiquetada.to==='' || this.aristaEtiquetada.label==='')
+                    {
+                        alert("extremos de aristas o peso no indicado. Rellene todos los campos antes de continuar");
+                        return;
+                    }
+                    for(var i=0; i<this.aristas.length;i++)
+                    {
+                        if(this.aristaEtiquetada.from===this.aristas[i].from && this.aristaEtiquetada.to===this.aristas[i].to)
+                        {
+                            alert("La arista ya existe. Ingrese otra");
+                            return;
+                        }
+                        
+                    }
+                    this.aristas.push(this.aristaEtiquetada);
+                    console.log('Se agrega la arista', this.aristaEtiquetada);
+                    this.aristaEtiquetada={from:'', to:'', label:'',color:{color:'rgb(0,0,0)'},font:{color:'rgb(255,255,255)'}};
+                    this.drawGrafoEtiquetadoNoDirigido();
+                    var ady=this.matrizAdyacencia();
+
+                }                
+            } catch (error) {
+                console.log('Error al crear arista:',error);
             }
         },
 
