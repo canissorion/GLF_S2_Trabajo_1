@@ -78,7 +78,7 @@
                                         <div>
                                             <form @submit.prevent="crearNodo">
                                                 <div class="form-group">
-                                                    <label for="id">ingrese el id: </label> 
+                                                    <label for="id">Ingrese el id: </label> 
                                                     <input type="number" min="1" v-model="nodo.id" name="id" class="form-control"> 
                                                 </div>
 
@@ -99,7 +99,7 @@
                                             </div>
                                     
                                             <button class="btn btn-success btn-sm" type="submit" >Agregar</button>
-                                            <button class="btn btn-success btn-sm" @click="drawGrafoDirigido">dibujar</button>
+                                            <button class="btn btn-success btn-sm" @click="drawGrafoDirigido">Dibujar</button>
                                         </form>
                                     </div>
                             </div>
@@ -125,7 +125,7 @@
                                         <div>
                                             <form @submit.prevent="crearNodo">
                                                 <div class="form-group">
-                                                    <label for="id">ingrese el id: </label> 
+                                                    <label for="id">Ingrese el id: </label> 
                                                     <input type="number" min="1" v-model="nodo.id" name="id" class="form-control"> 
                                                 </div>
 
@@ -149,7 +149,7 @@
                                             </div>
                                     
                                             <button class="btn btn-success btn-sm" type="submit" >Agregar</button>
-                                            <button class="btn btn-success btn-sm" @click="drawGrafo">dibujar</button>
+                                            <button class="btn btn-success btn-sm" @click="drawGrafo">Dibujar</button>
                                         </form>
                                     </div>
 
@@ -177,7 +177,7 @@
                                         <div>
                                             <form @submit.prevent="crearNodo">
                                                 <div class="form-group">
-                                                    <label for="id">ingrese el id: </label> 
+                                                    <label for="id">Ingrese el id: </label> 
                                                     <input type="number" min="1" v-model="nodo.id" name="id" class="form-control"> 
                                                 </div>
 
@@ -201,7 +201,7 @@
                                             </div>
                                     
                                             <button class="btn btn-success btn-sm" type="submit" >Agregar</button>
-                                            <button class="btn btn-success btn-sm" @click="drawGrafo">dibujar</button>
+                                            <button class="btn btn-success btn-sm" @click="drawGrafo">Dibujar</button>
                                         </form>
                                     </div>
 
@@ -210,19 +210,20 @@
                         </div>
                     </div>
                 </div>
-            </div>                                                 
-            <div class="row justify-content-center">
-                <h3 class="text-center fredoka my-2">Graficacion</h3>
+                <div class="col-md-5 card cardaux ml-3 fondo">
+                <h3 class="text-center fredoka my-2">Graficación</h3>
                 <div id="grafo" class="mb-3" style="border: 1px solid lightgray;"></div>
             </div>
-            <h1 class="text-center fredoka textocolor my-4">Informacion del Grafo</h1>
+            </div>                                                 
+            
+            <h1 class="text-center fredoka textocolor my-4">Información del Grafo</h1>
             <div class="row justify-content-center">
-                <div class="card cardaux4 col-md-10 rounded-top">
-                    <div class="btn-group justify-content-center" role="group">
+                <div class="card cardaux4 col-md-6.5 rounded-top">
+                    <div class="justify-content-center" role="group">
                         <a href="#matrizcaminos"><button type="button" class="btn btn-secondary" @click="mostrarOp1">Matriz de caminos</button></a>
                         <a href="#caminocorto"><button type="button" class="btn btn-secondary" @click="mostrarOp2">Camino más corto</button></a>
                         <a href="#hamiltoniano"><button type="button" class="btn btn-secondary" @click="mostrarOp3">Hamiltoniano / Euleriano</button></a>
-                        <a href="#arbolgenerador"><button type="button" class="btn btn-secondary" @click="mostrarOp5">Arbol Generador</button></a>
+                        <a href="#arbolgenerador"><button type="button" class="btn btn-secondary" @click="mostrarOp5">Árbol Generador</button></a>
                     </div>
                 </div>
 
@@ -270,7 +271,7 @@
                 </div>
                 <div id="caminocorto" class="card cardaux3 col-md-10 rounded-bottom" v-if="controlanalisis==2">
                     <div class="container">
-                        Camino mas corto
+                        Camino más corto
                         (No funciona con grafos simples)
                         <div>
 
@@ -278,7 +279,7 @@
                                 <label>Ingrese id de nodo de inicio: </label>
                                 <input type="number" min="1" v-model="inicio" class="form-control">
                         
-                                <button>Consultar</button>
+                                <button class="btn btn-success m-3">Consultar</button>
                             </form>
                         </div>
 
@@ -370,7 +371,7 @@
                 </div>
                 <div id="flujomaximo" class="card cardaux3 col-md-10 rounded-bottom" v-if="controlanalisis==4">
                     <div class="container">
-                        Flujo Maximo
+                        Flujo Máximo
                     </div>
                 </div>
 
